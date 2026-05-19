@@ -1,0 +1,73 @@
+*********************Study Git
+
+1. Kiểm tra trạng thái file
+	git status
+	
+2. Thêm các file vào staging
+	- Cụ thể 1 file: git add <file_name>
+	- Tất cả file: git add .
+	
+3. Tạo 1 commit
+	git commit -m "<messages>"
+	
+4. Đẩy lên remote
+	- git push origin <branch_name>
+	- git push -f (-f nghĩa là push cố chấp dù nhánh đang bị conflict, không có '-f' thì nếu có conflict sẽ ko cho push)
+
+5. Check history của nhánh
+	- Để biết người, ngày commit đầy đủ:
+		git log
+	- Để hiển thị rút gọn trên 1 dòng:
+		git log --oneline
+	
+6. Check số lượng branch
+	git branch
+
+7. Tạo branch
+	- Tạo nhưng không chuyển sang nhánh vừa tạo:
+		git branch <ten_nhanh>
+	- Tạo và chuyển sang nhánh vừa tạo:
+		git checkout -b <ten_nhanh>
+		
+8. Merge nhánh A vào nhánh B
+	git merge <ten_nhanh_muon_merge>
+	
+9. Sử dụng Rebase (Chỉ dùng ở nhánh cá nhân)
+	- Đang đứng nhánh_B, muốn merge nhánh_A vào nhưng không muốn log history commit nhánh_A => Giúp gọn history commit
+		git rebase <ten_nhanh_muon_merge>
+	- Dùng để "gộp commit", "Đổi message commit", "Xóa commit không cần thiết", "Sắp xếp lại commit", "Chỉnh sửa nội dung commit"
+		git rebase -i <ten_commit_cu_the>
+		git rebase -i HEAD~N (N là số lượng commit)
+		
+		*Ví dụ:
+			+ Trong nhánh có lịch sử commit
+				5abf25a
+				629ff33
+				4020935
+				739ff44
+			+ Chạy lệnh: "git rebase -i 629ff33" hoặc "git rebase -i HEAD~2"
+			+ Cmd hiển thị
+				pick 4020935
+				pick 739ff44
+			+ Nhấn phím "i" để sửa
+			+ Sửa thành
+				pick 4020935
+				squash/s 739ff44
+			+ Nhấn :wq (write quit) để lưu lại và Enter
+			+ Cmd hiển thị các message
+				+ Những message nào không dùng thì xóa đi hoặc thêm "#" vào đầu message
+				+ Message đầu tiên sẽ đổi thành message mới
+			+ Check lại commit của nhánh: "git log --oneline"
+
+10. Tham số HEAD (con trỏ) là ám chỉ nơi commit mình đang đứng
+	- Ví dụ: Trong nhánh có 2 commit là 5abf25a và 629ff33, mình đang đứng commit 629ff33 thì nghĩa là HEAD = commit_629ff33
+	
+11. Cách lùi lại 1 hoặc nhiều commit trong nhánh
+	- Lùi 1 commit:
+		git checkout HEAD^
+	- Lùi nhiều commit:
+		git checkout HEAD~N (N là số lượng commit)
+		
+12. Cách để ép nhánh hiện tại qua 1 commit khác (bất kể là commit của nhánh khác)
+	git branch -f <ten_nhanh> <commit_id>
+	
