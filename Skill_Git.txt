@@ -58,13 +58,19 @@
 				+ Những message nào không dùng thì xóa đi hoặc thêm "#" vào đầu message
 				+ Message đầu tiên sẽ đổi thành message mới
 			+ Check lại commit của nhánh: "git log --oneline"
+			+ Khi push lên, chạy lệnh "git push --force origin <branch_name>"
 
 10. Tham số HEAD (con trỏ) là ám chỉ nơi commit mình đang đứng
 	- Ví dụ: Trong nhánh có 2 commit là 5abf25a và 629ff33, mình đang đứng commit 629ff33 thì nghĩa là HEAD = commit_629ff33
 	
 11. Cách lùi lại 1 hoặc nhiều commit trong nhánh
 	- Lùi 1 commit:
-		git checkout HEAD^
+		+ Lệnh "git checkout HEAD^"
+			++ Sẽ lùi về commit_1 và không hiển thị file thay đổi ở staging
+			++ Khi dùng lệnh đó thì HEAD sẽ đứng ở commit_1 độc lập và không thuộc về nhánh nào cả
+			++ Nếu tạo commit mới thì vẫn ở độc lập commit mới, vì vậy nên tạo 1 nhánh mới rồi commit
+			++ Dùng khi muốn check code ở commit nào đó chứ không làm gì khác
+			++ Muốn quay lại nhánh nào đó, gõ lệnh "git checkout <branch_name>"
 	- Lùi nhiều commit:
 		git checkout HEAD~N (N là số lượng commit)
 		
